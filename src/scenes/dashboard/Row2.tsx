@@ -1,74 +1,133 @@
 import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
-import FlexBetween from "@/components/FlexBetween";
-import { useGetKpisQuery, useGetProductsQuery } from "@/state/api";
-import { Box, Typography, useTheme } from "@mui/material";
-import React, { useMemo } from "react";
+import { useGetKpisQuery } from "@/state/api";
+import { useTheme } from "@mui/material";
+import { useMemo } from "react";
 import {
-  Tooltip,
-  CartesianGrid,
-  LineChart,
   ResponsiveContainer,
+  CartesianGrid,
+  AreaChart,
+  BarChart,
+  Bar,
+  LineChart,
   XAxis,
   YAxis,
+  Legend,
   Line,
-  PieChart,
-  Pie,
-  Cell,
-  ScatterChart,
-  Scatter,
-  ZAxis,
+  Tooltip,
+  Area,
 } from "recharts";
-
-const pieData = [
-  { name: "Group A", value: 600 },
-  { name: "Group B", value: 400 },
-];
 
 const Row2 = () => {
   const { palette } = useTheme();
-  const pieColors = [palette.primary[800], palette.primary[300]];
-  const { data: operationalData } = useGetKpisQuery();
-  const { data: productData } = useGetProductsQuery();
+  const { data } = useGetKpisQuery();
 
-  const operationalExpenses = useMemo(() => {
+  const revenue = useMemo(() => {
     return (
-      operationalData &&
-      operationalData[0].monthlyData.map(
-        ({ month, operationalExpenses, nonOperationalExpenses }) => {
-          return {
-            name: month.substring(0, 3),
-            "Operational Expenses": operationalExpenses,
-            "Non Operational Expenses": nonOperationalExpenses,
-          };
-        }
-      )
-    );
-  }, [operationalData]);
-
-  const productExpenseData = useMemo(() => {
-    return (
-      productData &&
-      productData.map(({ _id, price, expense }) => {
+      data &&
+      data[0].monthlyData.map(({ month, revenue }) => {
         return {
-          id: _id,
-          price: price,
-          expense: expense,
+          name: month.substring(0, 3),
+          revenue: revenue,
         };
       })
     );
-  }, [productData]);
+  }, [data]);
+
+  const revenueExpenses = useMemo(() => {
+    return (
+      data &&
+      data[0].monthlyData.map(({ month, revenue, expenses }) => {
+        return {
+          name: month.substring(0, 3),
+          revenue: revenue,
+          expenses: expenses,
+        };
+      })
+    );
+  }, [data]);
+
+  const revenueProfit = useMemo(() => {
+    return (
+      data &&
+      data[0].monthlyData.map(({ month, revenue, expenses }) => {
+        return {
+          name: month.substring(0, 3),
+          revenue: revenue,
+          profit: (revenue - expenses).toFixed(2),
+        };
+      })
+    );
+  }, [data]);
 
   return (
     <>
+      <DashboardBox gridArea="c">
+        <BoxHeader
+          title="Revenue and Expenses"
+          subtitle="top line represents revenue, bottom line represents expenses"
+          sideText="+4%"
+        />
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart
+            width={500}
+            height={400}
+            data={revenueExpenses}
+            margin={{
+              top: 15,
+              right: 25,
+              left: -10,
+              bottom: 60,
+            }}
+          >
+            <defs>
+              <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={palette.primary[300]} stopOpacity={0.5} />
+                <stop offset="95%" stopColor={palette.primary[300]} stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={palette.primary[300]} stopOpacity={0.5} />
+                <stop offset="95%" stopColor={palette.primary[300]} stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="name" tickLine={false} style={{ fontSize: "10px" }} />
+            <YAxis
+              tickLine={false}
+              axisLine={{ strokeWidth: "0" }}
+              style={{ fontSize: "10px" }}
+              domain={[8000, 23000]}
+            />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="revenue"
+              dot={true}
+              stroke={palette.primary.main}
+              fillOpacity={1}
+              fill="url(#colorRevenue)"
+            />
+            <Area
+              type="monotone"
+              dataKey="expenses"
+              dot={true}
+              stroke={palette.primary.main}
+              fillOpacity={1}
+              fill="url(#colorExpenses)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </DashboardBox>
       <DashboardBox gridArea="d">
         <BoxHeader
-          title="Operational vs Non-Operational Expenses"
+          title="Profit and Revenue"
+          subtitle="top line represents revenue, bottom line represents expenses"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={operationalExpenses}
+            width={500}
+            height={400}
+            data={revenueProfit}
             margin={{
               top: 20,
               right: 0,
@@ -77,14 +136,9 @@ const Row2 = () => {
             }}
           >
             <CartesianGrid vertical={false} stroke={palette.grey[800]} />
-            <XAxis
-              dataKey="name"
-              tickLine={false}
-              style={{ fontSize: "10px" }}
-            />
+            <XAxis dataKey="name" tickLine={false} style={{ fontSize: "10px" }} />
             <YAxis
               yAxisId="left"
-              orientation="left"
               tickLine={false}
               axisLine={false}
               style={{ fontSize: "10px" }}
@@ -97,106 +151,62 @@ const Row2 = () => {
               style={{ fontSize: "10px" }}
             />
             <Tooltip />
+            <Legend
+              height={20}
+              wrapperStyle={{
+                margin: "0 0 10px 0",
+              }}
+            />
             <Line
               yAxisId="left"
               type="monotone"
-              dataKey="Non Operational Expenses"
+              dataKey="profit"
               stroke={palette.tertiary[500]}
             />
             <Line
               yAxisId="right"
               type="monotone"
-              dataKey="Operational Expenses"
+              dataKey="revenue"
               stroke={palette.primary.main}
             />
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
       <DashboardBox gridArea="e">
-        <BoxHeader title="Campaigns and Targets" sideText="+4%" />
-        <FlexBetween mt="0.25rem" gap="1.5rem" pr="1rem">
-          <PieChart
-            width={110}
-            height={100}
-            margin={{
-              top: 0,
-              right: -10,
-              left: 10,
-              bottom: 0,
-            }}
-          >
-            <Pie
-              stroke="none"
-              data={pieData}
-              innerRadius={18}
-              outerRadius={38}
-              paddingAngle={2}
-              dataKey="value"
-            >
-              {pieData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={pieColors[index]} />
-              ))}
-            </Pie>
-          </PieChart>
-          <Box ml="-0.7rem" flexBasis="40%" textAlign="center">
-            <Typography variant="h5">Target Sales</Typography>
-            <Typography m="0.3rem 0" variant="h3" color={palette.primary[300]}>
-              83
-            </Typography>
-            <Typography variant="h6">
-              Finance goals of the campaign that is desired
-            </Typography>
-          </Box>
-          <Box flexBasis="40%">
-            <Typography variant="h5">Losses in Revenue</Typography>
-            <Typography variant="h6">Losses are down 25%</Typography>
-            <Typography mt="0.4rem" variant="h5">
-              Profit Margins
-            </Typography>
-            <Typography variant="h6">
-              Margins are up by 30% from last month.
-            </Typography>
-          </Box>
-        </FlexBetween>
-      </DashboardBox>
-      <DashboardBox gridArea="f">
-        <BoxHeader title="Product Prices vs Expenses" sideText="+4%" />
+        <BoxHeader
+          title="Revenue Month by Month"
+          subtitle="graph representing the revenue month by month"
+          sideText="+4%"
+        />
         <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart
+          <BarChart
+            width={500}
+            height={300}
+            data={revenue}
             margin={{
-              top: 20,
-              right: 25,
-              bottom: 40,
-              left: -10,
+              top: 17,
+              right: 15,
+              left: -5,
+              bottom: 58,
             }}
           >
-            <CartesianGrid stroke={palette.grey[800]} />
+            <defs>
+              <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={palette.primary[300]} stopOpacity={0.8} />
+                <stop offset="95%" stopColor={palette.primary[300]} stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} stroke={palette.grey[800]} />
             <XAxis
-              type="number"
-              dataKey="price"
-              name="price"
+              dataKey="name"
               axisLine={false}
               tickLine={false}
               style={{ fontSize: "10px" }}
-              tickFormatter={(v) => `$${v}`}
             />
-            <YAxis
-              type="number"
-              dataKey="expense"
-              name="expense"
-              axisLine={false}
-              tickLine={false}
-              style={{ fontSize: "10px" }}
-              tickFormatter={(v) => `$${v}`}
-            />
-            <ZAxis type="number" range={[20]} />
-            <Tooltip formatter={(v) => `$${v}`} />
-            <Scatter
-              name="Product Expense Ratio"
-              data={productExpenseData}
-              fill={palette.tertiary[500]}
-            />
-          </ScatterChart>
+            <YAxis axisLine={false} tickLine={false} style={{ fontSize: "10px" }} />
+            <Tooltip />
+            <Bar dataKey="revenue" fill="url(#colorRevenue)" />
+          </BarChart>
         </ResponsiveContainer>
       </DashboardBox>
     </>
