@@ -4,40 +4,47 @@ export interface ExpensesByCategory {
   services: number;
 }
 
+export interface TopQuantitySold {
+  productId: string;
+  name: string;
+  quantity: number;
+}
+
+export interface TopProfitProducts {
+  productId: string;
+  name: string;
+  profit: number;
+}
+
+export interface MetaProducts {
+  topQuantitySold: Array<TopQuantitySold>;
+  topProfitProducts: Array<TopProfitProducts>;
+}
+
 export interface Month {
   id: string;
   month: string;
   revenue: number;
   expenses: number;
+  marketingSpend: number;
   nonOperationalExpenses: number;
   operationalExpenses: number;
-}
-
-export interface Day {
-  id: string;
-  date: string;
-  revenue: number;
-  expenses: number;
 }
 
 export interface GetKpisResponse {
   id: string;
   _id: string;
-  __v: number;
   totalProfit: number;
   totalRevenue: number;
   totalExpenses: number;
   expensesByCategory: ExpensesByCategory;
   monthlyData: Array<Month>;
-  dailyData: Array<Day>;
-  createdAt: string;
-  updatedAt: string;
+  metaProducts: Array<string>;
 }
 
 export interface GetProductsResponse {
   id: string;
   _id: string;
-  __v: number;
   price: number;
   expense: number;
   transactions: Array<string>;
@@ -48,7 +55,6 @@ export interface GetProductsResponse {
 export interface GetTransactionsResponse {
   id: string;
   _id: string;
-  __v: number;
   buyer: string;
   amount: number;
   productIds: Array<string>;

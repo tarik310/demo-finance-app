@@ -28,7 +28,7 @@ const customBaseQuery: BaseQueryFn<
         }
       }
       resolve({ data });
-    }, 100); // 1 second delay to simulate network latency
+    }, 50); // delay to simulate network latency
   });
 };
 
