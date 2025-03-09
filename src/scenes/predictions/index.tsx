@@ -1,8 +1,8 @@
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
 import { useGetKpisQuery } from "@/state/api";
-import { Box, Button, Typography, useTheme } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import { Box, Typography, useTheme } from "@mui/material";
+import React, { useMemo } from "react";
 import {
   CartesianGrid,
   Label,
@@ -18,7 +18,6 @@ import regression, { DataPoint } from "regression";
 
 const Predictions = () => {
   const { palette } = useTheme();
-  const [isPredictions, setIsPredictions] = useState(false);
   const { data: kpiData } = useGetKpisQuery();
 
   const formattedData = useMemo(() => {
@@ -35,7 +34,7 @@ const Predictions = () => {
         name: month,
         "Actual Revenue": revenue,
         "Regression Line": regressionLine.points[i][1],
-        "Predicted Revenue": regressionLine.predict(i + 12)[1],
+        "Predicted Revenue Next Year": regressionLine.predict(i + 12)[1],
       };
     });
   }, [kpiData]);
@@ -50,16 +49,6 @@ const Predictions = () => {
             model
           </Typography>
         </Box>
-        <Button
-          onClick={() => setIsPredictions(!isPredictions)}
-          sx={{
-            color: palette.grey[900],
-            backgroundColor: palette.grey[700],
-            boxShadow: "0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,.4)",
-          }}
-        >
-          Show Predicted Revenue for Next Year
-        </Button>
       </FlexBetween>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
@@ -93,13 +82,11 @@ const Predictions = () => {
             dot={{ strokeWidth: 5 }}
           />
           <Line type="monotone" dataKey="Regression Line" stroke="#7c3aed" dot={false} />
-          {isPredictions && (
-            <Line
-              strokeDasharray="5 5"
-              dataKey="Predicted Revenue"
-              stroke={palette.secondary[600]}
-            />
-          )}
+          <Line
+            strokeDasharray="5 5"
+            dataKey="Predicted Revenue Next Year"
+            stroke={palette.secondary[600]}
+          />
         </LineChart>
       </ResponsiveContainer>
     </DashboardBox>
