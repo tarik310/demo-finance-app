@@ -12,19 +12,24 @@ const Row1 = () => {
   const productColumns = [
     {
       field: "_id",
-      headerName: "id",
+      headerName: "ID",
+      width: 70,
+    },
+    {
+      field: "name",
+      headerName: "Name",
       flex: 1,
     },
     {
       field: "expense",
       headerName: "Expense",
-      flex: 0.5,
+      flex: 1,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
     {
       field: "price",
       headerName: "Price",
-      flex: 0.5,
+      flex: 1,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
   ];
@@ -32,24 +37,29 @@ const Row1 = () => {
   const transactionColumns = [
     {
       field: "_id",
-      headerName: "id",
-      flex: 1,
+      headerName: "ID",
+      width: 70,
     },
     {
       field: "buyer",
       headerName: "Buyer",
-      flex: 0.67,
+      flex: 1,
     },
     {
-      field: "amount",
+      field: "date",
+      headerName: "Date",
+      flex: 1,
+    },
+    {
+      field: "totalAmount",
       headerName: "Amount",
-      flex: 0.35,
+      flex: 1,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
     {
       field: "productIds",
-      headerName: "Count",
-      flex: 0.1,
+      headerName: "Quantity",
+      flex: 1,
       renderCell: (params: GridCellParams) => (params.value as Array<string>).length,
     },
   ];
@@ -59,12 +69,12 @@ const Row1 = () => {
       <DashboardBox gridArea="a">
         <BoxHeader
           title="List of Products"
-          sideText={`${productData?.length} products`}
+          sideText={`${productData?.length} Products`}
         />
         <Box
           mt="1rem"
           p="0 0.5rem"
-          height="75%"
+          height="80%"
           sx={{
             "& .MuiDataGrid-root": {
               color: palette.grey[300],
@@ -74,7 +84,7 @@ const Row1 = () => {
               borderBottom: `1px solid ${palette.grey[600]} !important`,
             },
             "& .MuiDataGrid-columnHeaders": {
-              borderBottom: `1px solid ${palette.grey[600]} !important`,
+              borderBottom: `1px solid ${palette.grey[500]} !important`,
             },
             "& .MuiDataGrid-columnHeaderTitle": {
               fontWeight: 700,
@@ -87,7 +97,15 @@ const Row1 = () => {
           <DataGrid
             columnHeaderHeight={25}
             rowHeight={35}
-            hideFooter={true}
+            pageSizeOptions={[50, 100]}
+            pagination
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 50, // Default number of rows per page
+                },
+              },
+            }}
             rows={productData || []}
             columns={productColumns}
             getRowId={(row) => row._id}
@@ -97,12 +115,12 @@ const Row1 = () => {
       <DashboardBox gridArea="b">
         <BoxHeader
           title="Recent Orders"
-          sideText={`${transactionData?.length} latest transactions`}
+          sideText={`${transactionData?.length} Latest transactions`}
         />
         <Box
           mt="1rem"
           p="0 0.5rem"
-          height="75%"
+          height="80%"
           sx={{
             "& .MuiDataGrid-root": {
               color: palette.grey[300],
@@ -112,7 +130,7 @@ const Row1 = () => {
               borderBottom: `1px solid ${palette.grey[600]} !important`,
             },
             "& .MuiDataGrid-columnHeaders": {
-              borderBottom: `1px solid ${palette.grey[600]} !important`,
+              borderBottom: `1px solid ${palette.grey[500]} !important`,
             },
             "& .MuiDataGrid-columnHeaderTitle": {
               fontWeight: 700,
@@ -125,7 +143,15 @@ const Row1 = () => {
           <DataGrid
             columnHeaderHeight={25}
             rowHeight={35}
-            hideFooter={true}
+            pageSizeOptions={[50, 100]}
+            pagination
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 50, // Default number of rows per page
+                },
+              },
+            }}
             rows={transactionData || []}
             columns={transactionColumns}
             getRowId={(row) => row._id}
