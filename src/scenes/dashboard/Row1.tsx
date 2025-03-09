@@ -71,10 +71,10 @@ const Row1 = () => {
               border: "none",
             },
             "& .MuiDataGrid-cell": {
-              borderBottom: `1px solid ${palette.grey[800]} !important`,
+              borderBottom: `1px solid ${palette.grey[600]} !important`,
             },
             "& .MuiDataGrid-columnHeaders": {
-              borderBottom: `1px solid ${palette.grey[800]} !important`,
+              borderBottom: `1px solid ${palette.grey[600]} !important`,
             },
             "& .MuiDataGrid-columnHeaderTitle": {
               fontWeight: 700,
@@ -109,10 +109,10 @@ const Row1 = () => {
               border: "none",
             },
             "& .MuiDataGrid-cell": {
-              borderBottom: `1px solid ${palette.grey[800]} !important`,
+              borderBottom: `1px solid ${palette.grey[600]} !important`,
             },
             "& .MuiDataGrid-columnHeaders": {
-              borderBottom: `1px solid ${palette.grey[800]} !important`,
+              borderBottom: `1px solid ${palette.grey[600]} !important`,
             },
             "& .MuiDataGrid-columnHeaderTitle": {
               fontWeight: 700,

@@ -11,7 +11,7 @@ export default function PredictiveInsightsLogo() {
       viewBox="0 0 512 512"
       //   style="enable-background:new 0 0 512 512"
       xmlSpace="preserve"
-      fill="#1f2937"
+      fill="#f97316"
     >
       <g>
         <path
