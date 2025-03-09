@@ -23,7 +23,7 @@ const customBaseQuery: BaseQueryFn<
           data = transactions;
         } else {
           // If the endpoint doesn't match any known key, return an error
-          resolve({ error: { status: 404, error: "Not Found" } });
+          resolve({ error: { status: 404, data: "Not Found" } });
           return;
         }
       }
