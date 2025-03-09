@@ -22,13 +22,13 @@ const Row2 = () => {
   const { palette } = useTheme();
   const { data } = useGetKpisQuery();
 
-  const revenue = useMemo(() => {
+  const marketingSpend = useMemo(() => {
     return (
       data &&
-      data[0].monthlyData.map(({ month, revenue }) => {
+      data[0].monthlyData.map(({ month, marketingSpend }) => {
         return {
           name: month.substring(0, 3),
-          revenue: revenue,
+          Marketing: marketingSpend,
         };
       })
     );
@@ -40,21 +40,20 @@ const Row2 = () => {
       data[0].monthlyData.map(({ month, revenue, expenses }) => {
         return {
           name: month.substring(0, 3),
-          revenue: revenue,
-          expenses: expenses,
+          Revenue: revenue,
+          Expenses: expenses,
         };
       })
     );
   }, [data]);
 
-  const revenueProfit = useMemo(() => {
+  const monthlyProfit = useMemo(() => {
     return (
       data &&
       data[0].monthlyData.map(({ month, revenue, expenses }) => {
         return {
           name: month.substring(0, 3),
-          revenue: revenue,
-          profit: (revenue - expenses).toFixed(2),
+          Profit: (revenue - expenses).toFixed(2),
         };
       })
     );
@@ -66,7 +65,7 @@ const Row2 = () => {
         <BoxHeader
           title="Revenue and Expenses"
           subtitle="top line represents revenue, bottom line represents expenses"
-          sideText="+4%"
+          sideText="+4%???"
         />
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
@@ -75,19 +74,19 @@ const Row2 = () => {
             data={revenueExpenses}
             margin={{
               top: 15,
-              right: 25,
-              left: -10,
+              right: 20,
+              left: -20,
               bottom: 60,
             }}
           >
             <defs>
               <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={palette.primary[300]} stopOpacity={0.5} />
-                <stop offset="95%" stopColor={palette.primary[300]} stopOpacity={0} />
+                <stop offset="50%" stopColor={palette.primary[300]} stopOpacity={0.6} />
+                <stop offset="100%" stopColor={palette.primary[300]} stopOpacity={0} />
               </linearGradient>
               <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={palette.primary[300]} stopOpacity={0.5} />
-                <stop offset="95%" stopColor={palette.primary[300]} stopOpacity={0} />
+                <stop offset="50%" stopColor={palette.secondary[500]} stopOpacity={0.7} />
+                <stop offset="100%" stopColor={palette.secondary[500]} stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis dataKey="name" tickLine={false} style={{ fontSize: "10px" }} />
@@ -95,12 +94,24 @@ const Row2 = () => {
               tickLine={false}
               axisLine={{ strokeWidth: "0" }}
               style={{ fontSize: "10px" }}
-              domain={[8000, 23000]}
+              tickFormatter={(value) =>
+                value >= 1_000_000
+                  ? `${value / 1_000_000}M`
+                  : value >= 1_000
+                  ? `${value / 1_000}k`
+                  : value
+              }
             />
             <Tooltip />
+            <Legend
+              height={20}
+              wrapperStyle={{
+                margin: "0 0 10px 0",
+              }}
+            />
             <Area
               type="monotone"
-              dataKey="revenue"
+              dataKey="Revenue"
               dot={true}
               stroke={palette.primary.main}
               fillOpacity={1}
@@ -108,9 +119,9 @@ const Row2 = () => {
             />
             <Area
               type="monotone"
-              dataKey="expenses"
+              dataKey="Expenses"
               dot={true}
-              stroke={palette.primary.main}
+              stroke={palette.secondary[500]}
               fillOpacity={1}
               fill="url(#colorExpenses)"
             />
@@ -119,19 +130,19 @@ const Row2 = () => {
       </DashboardBox>
       <DashboardBox gridArea="d">
         <BoxHeader
-          title="Profit and Revenue"
-          subtitle="top line represents revenue, bottom line represents expenses"
-          sideText="+4%"
+          title="Monthly Profit"
+          subtitle="This chart represents the monthly profit"
+          sideText="+4%???"
         />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             width={500}
             height={400}
-            data={revenueProfit}
+            data={monthlyProfit}
             margin={{
               top: 20,
-              right: 0,
-              left: -10,
+              right: 20,
+              left: -20,
               bottom: 55,
             }}
           >
@@ -142,13 +153,13 @@ const Row2 = () => {
               tickLine={false}
               axisLine={false}
               style={{ fontSize: "10px" }}
-            />
-            <YAxis
-              yAxisId="right"
-              orientation="right"
-              tickLine={false}
-              axisLine={false}
-              style={{ fontSize: "10px" }}
+              tickFormatter={(value) =>
+                value >= 1_000_000
+                  ? `${value / 1_000_000}M`
+                  : value >= 1_000
+                  ? `${value / 1_000}k`
+                  : value
+              }
             />
             <Tooltip />
             <Legend
@@ -160,33 +171,27 @@ const Row2 = () => {
             <Line
               yAxisId="left"
               type="monotone"
-              dataKey="profit"
+              dataKey="Profit"
               stroke={palette.tertiary[500]}
-            />
-            <Line
-              yAxisId="right"
-              type="monotone"
-              dataKey="revenue"
-              stroke={palette.primary.main}
             />
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
       <DashboardBox gridArea="e">
         <BoxHeader
-          title="Revenue Month by Month"
-          subtitle="graph representing the revenue month by month"
-          sideText="+4%"
+          title="Monthly Marketing Spend"
+          subtitle="graph representing the monthly marketing spend"
+          sideText="+4%???"
         />
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             width={500}
             height={300}
-            data={revenue}
+            data={marketingSpend}
             margin={{
               top: 17,
-              right: 15,
-              left: -5,
+              right: 20,
+              left: -20,
               bottom: 58,
             }}
           >
@@ -203,9 +208,20 @@ const Row2 = () => {
               tickLine={false}
               style={{ fontSize: "10px" }}
             />
-            <YAxis axisLine={false} tickLine={false} style={{ fontSize: "10px" }} />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              style={{ fontSize: "10px" }}
+              tickFormatter={(value) =>
+                value >= 1_000_000
+                  ? `${value / 1_000_000}M`
+                  : value >= 1_000
+                  ? `${value / 1_000}k`
+                  : value
+              }
+            />
             <Tooltip />
-            <Bar dataKey="revenue" fill="url(#colorRevenue)" />
+            <Bar dataKey="Marketing" fill="url(#colorRevenue)" />
           </BarChart>
         </ResponsiveContainer>
       </DashboardBox>
