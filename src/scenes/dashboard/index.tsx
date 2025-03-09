@@ -17,8 +17,8 @@ const gridTemplateLargeScreens = `
   "f f f f f f"
   "g g h h i i"
   "g g h h i i"
-  "j j . . . ."
-  "j j . . . ."
+  "g g h h i i"
+  ". . . . . ."
 `;
 const gridTemplateSmallScreens = `
   "a"

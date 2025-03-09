@@ -25,11 +25,9 @@ const Predictions = () => {
     if (!kpiData) return [];
     const monthData = kpiData[0].monthlyData;
 
-    const formatted: Array<DataPoint> = monthData.map(
-      ({ revenue }, i: number) => {
-        return [i, revenue];
-      }
-    );
+    const formatted: Array<DataPoint> = monthData.map(({ revenue }, i: number) => {
+      return [i, revenue];
+    });
     const regressionLine = regression.linear(formatted);
 
     return monthData.map(({ month, revenue }, i: number) => {
@@ -48,8 +46,8 @@ const Predictions = () => {
         <Box>
           <Typography variant="h3">Revenue and Predictions</Typography>
           <Typography variant="h6">
-            charted revenue and predicted revenue based on a simple linear
-            regression model
+            charted revenue and predicted revenue based on a simple linear regression
+            model
           </Typography>
         </Box>
         <Button
@@ -83,12 +81,7 @@ const Predictions = () => {
             style={{ fontSize: "10px" }}
             tickFormatter={(v) => `$${v}`}
           >
-            <Label
-              value="Revenue in USD"
-              angle={-90}
-              offset={-5}
-              position="insideLeft"
-            />
+            <Label value="Revenue in USD" angle={-90} offset={-5} position="insideLeft" />
           </YAxis>
           <Tooltip />
           <Legend verticalAlign="top" />
@@ -99,17 +92,12 @@ const Predictions = () => {
             strokeWidth={0}
             dot={{ strokeWidth: 5 }}
           />
-          <Line
-            type="monotone"
-            dataKey="Regression Line"
-            stroke="#8884d8"
-            dot={false}
-          />
+          <Line type="monotone" dataKey="Regression Line" stroke="#7c3aed" dot={false} />
           {isPredictions && (
             <Line
               strokeDasharray="5 5"
               dataKey="Predicted Revenue"
-              stroke={palette.secondary[500]}
+              stroke={palette.secondary[600]}
             />
           )}
         </LineChart>
