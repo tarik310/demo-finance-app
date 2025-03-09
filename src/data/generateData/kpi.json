@@ -1,0 +1,218 @@
+[
+  {
+    "_id": "2024",
+    "year": "2024",
+    "totalRevenue": 1492164.27,
+    "totalExpenses": 755285.56,
+    "totalProfit": 736878.71,
+    "monthlyData": [
+      {
+        "month": "January",
+        "revenue": 155889.01,
+        "expenses": 78107.4,
+        "operationalExpenses": 53182.34,
+        "nonOperationalExpenses": 24925.06,
+        "marketingSpend": 8274.94
+      },
+      {
+        "month": "February",
+        "revenue": 88131.63,
+        "expenses": 45169.52,
+        "operationalExpenses": 30511.35,
+        "nonOperationalExpenses": 14658.17,
+        "marketingSpend": 4734.12
+      },
+      {
+        "month": "March",
+        "revenue": 96185.67,
+        "expenses": 48561.44,
+        "operationalExpenses": 14793.68,
+        "nonOperationalExpenses": 33767.76,
+        "marketingSpend": 5113.09
+      },
+      {
+        "month": "April",
+        "revenue": 147023.48,
+        "expenses": 76000.85,
+        "operationalExpenses": 31486.42,
+        "nonOperationalExpenses": 44514.43,
+        "marketingSpend": 7376.5
+      },
+      {
+        "month": "May",
+        "revenue": 105922.99,
+        "expenses": 52773.3,
+        "operationalExpenses": 28664.77,
+        "nonOperationalExpenses": 24108.53,
+        "marketingSpend": 5857.89
+      },
+      {
+        "month": "June",
+        "revenue": 116151.92,
+        "expenses": 59563.28,
+        "operationalExpenses": 24617.35,
+        "nonOperationalExpenses": 34945.93,
+        "marketingSpend": 6211.63
+      },
+      {
+        "month": "July",
+        "revenue": 183717.8,
+        "expenses": 93653.53,
+        "operationalExpenses": 50345.12,
+        "nonOperationalExpenses": 43308.41,
+        "marketingSpend": 9190.09
+      },
+      {
+        "month": "August",
+        "revenue": 72861.67,
+        "expenses": 36490.99,
+        "operationalExpenses": 16710.15,
+        "nonOperationalExpenses": 19780.84,
+        "marketingSpend": 3985.31
+      },
+      {
+        "month": "September",
+        "revenue": 151488.46,
+        "expenses": 76183.36,
+        "operationalExpenses": 38104.06,
+        "nonOperationalExpenses": 38079.3,
+        "marketingSpend": 7636.67
+      },
+      {
+        "month": "October",
+        "revenue": 143665.32,
+        "expenses": 72373.08,
+        "operationalExpenses": 45331.36,
+        "nonOperationalExpenses": 27041.72,
+        "marketingSpend": 7298.04
+      },
+      {
+        "month": "November",
+        "revenue": 137878.73,
+        "expenses": 69644.46,
+        "operationalExpenses": 24529.9,
+        "nonOperationalExpenses": 45114.56,
+        "marketingSpend": 7249.4
+      },
+      {
+        "month": "December",
+        "revenue": 93247.59,
+        "expenses": 46764.35,
+        "operationalExpenses": 26760.23,
+        "nonOperationalExpenses": 20004.12,
+        "marketingSpend": 5335.72
+      }
+    ],
+    "expensesByCategory": {
+      "salaries": 188821.39,
+      "supplies": 264349.95,
+      "services": 302114.22
+    },
+    "metaProducts": {
+      "topQuantitySold": [
+        {
+          "productId": "15",
+          "name": "product-15",
+          "quantity": 109
+        },
+        {
+          "productId": "68",
+          "name": "product-68",
+          "quantity": 98
+        },
+        {
+          "productId": "160",
+          "name": "product-160",
+          "quantity": 98
+        },
+        {
+          "productId": "103",
+          "name": "product-103",
+          "quantity": 91
+        },
+        {
+          "productId": "189",
+          "name": "product-189",
+          "quantity": 91
+        },
+        {
+          "productId": "178",
+          "name": "product-178",
+          "quantity": 89
+        },
+        {
+          "productId": "120",
+          "name": "product-120",
+          "quantity": 87
+        },
+        {
+          "productId": "158",
+          "name": "product-158",
+          "quantity": 84
+        },
+        {
+          "productId": "18",
+          "name": "product-18",
+          "quantity": 83
+        },
+        {
+          "productId": "105",
+          "name": "product-105",
+          "quantity": 83
+        }
+      ],
+      "topProfitProducts": [
+        {
+          "productId": "178",
+          "name": "product-178",
+          "profit": 10987.94
+        },
+        {
+          "productId": "15",
+          "name": "product-15",
+          "profit": 10246
+        },
+        {
+          "productId": "103",
+          "name": "product-103",
+          "profit": 9928.1
+        },
+        {
+          "productId": "9",
+          "name": "product-9",
+          "profit": 9193.8
+        },
+        {
+          "productId": "84",
+          "name": "product-84",
+          "profit": 8540.8
+        },
+        {
+          "productId": "66",
+          "name": "product-66",
+          "profit": 8419.18
+        },
+        {
+          "productId": "79",
+          "name": "product-79",
+          "profit": 8219.07
+        },
+        {
+          "productId": "158",
+          "name": "product-158",
+          "profit": 8174.04
+        },
+        {
+          "productId": "48",
+          "name": "product-48",
+          "profit": 7439.52
+        },
+        {
+          "productId": "154",
+          "name": "product-154",
+          "profit": 7432.36
+        }
+      ]
+    }
+  }
+]
