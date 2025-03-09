@@ -22,20 +22,18 @@ const Row3 = () => {
   const pieChartData = useMemo(() => {
     if (kpiData) {
       const totalExpenses = kpiData[0].totalExpenses;
-      return Object.entries(kpiData[0].expensesByCategory).map(
-        ([key, value]) => {
-          return [
-            {
-              name: key,
-              value: value,
-            },
-            {
-              name: `${key} of Total`,
-              value: totalExpenses - value,
-            },
-          ];
-        }
-      );
+      return Object.entries(kpiData[0].expensesByCategory).map(([key, value]) => {
+        return [
+          {
+            name: key,
+            value: value,
+          },
+          {
+            name: `${key} of Total`,
+            value: totalExpenses - value,
+          },
+        ];
+      });
     }
   }, [kpiData]);
 
@@ -80,8 +78,7 @@ const Row3 = () => {
       field: "productIds",
       headerName: "Count",
       flex: 0.1,
-      renderCell: (params: GridCellParams) =>
-        (params.value as Array<string>).length,
+      renderCell: (params: GridCellParams) => (params.value as Array<string>).length,
     },
   ];
 
@@ -118,6 +115,7 @@ const Row3 = () => {
             hideFooter={true}
             rows={productData || []}
             columns={productColumns}
+            getRowId={(row) => row._id}
           />
         </Box>
       </DashboardBox>
@@ -152,6 +150,7 @@ const Row3 = () => {
             hideFooter={true}
             rows={transactionData || []}
             columns={transactionColumns}
+            getRowId={(row) => row._id}
           />
         </Box>
       </DashboardBox>
@@ -180,10 +179,7 @@ const Row3 = () => {
         </FlexBetween>
       </DashboardBox>
       <DashboardBox gridArea="j">
-        <BoxHeader
-          title="Overall Summary and Explanation Data"
-          sideText="+15%"
-        />
+        <BoxHeader title="Overall Summary and Explanation Data" sideText="+15%" />
         <Box
           height="15px"
           margin="1.25rem 1rem 0.4rem 1rem"
@@ -199,9 +195,9 @@ const Row3 = () => {
         </Box>
         <Typography margin="0 1rem" variant="h6">
           Orci aliquam enim vel diam. Venenatis euismod id donec mus lorem etiam
-          ullamcorper odio sed. Ipsum non sed gravida etiam urna egestas
-          molestie volutpat et. Malesuada quis pretium aliquet lacinia ornare
-          sed. In volutpat nullam at est id cum pulvinar nunc.
+          ullamcorper odio sed. Ipsum non sed gravida etiam urna egestas molestie volutpat
+          et. Malesuada quis pretium aliquet lacinia ornare sed. In volutpat nullam at est
+          id cum pulvinar nunc.
         </Typography>
       </DashboardBox>
     </>
