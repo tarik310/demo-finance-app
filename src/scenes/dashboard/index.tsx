@@ -12,13 +12,13 @@ const gridTemplateLargeScreens = `
   "c c d d e e"
   "c c d d e e"
   "c c d d e e"
-  "f f f f f f"
-  "f f f f f f"
-  "f f f f f f"
-  "g g h h i i"
-  "g g h h i i"
-  "g g h h i i"
-  ". . . . . ."
+  "f f f g g g"
+  "f f f g g g"
+  "f f f g g g"
+  "h h i i j j"
+  "h h i i j j"
+  "h h i i j j"
+  ". . i i j j"
 `;
 const gridTemplateSmallScreens = `
   "a"
@@ -65,7 +65,7 @@ const Dashboard = () => {
         isAboveMediumScreens
           ? {
               gridTemplateColumns: "repeat(6, minmax(185px, 1fr))",
-              gridTemplateRows: "repeat(14, minmax(60px, 1fr))",
+              gridTemplateRows: "repeat(20, minmax(60px, 1fr))",
               gridTemplateAreas: gridTemplateLargeScreens,
             }
           : {
