@@ -1,7 +1,7 @@
 import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
 import { useGetKpisQuery } from "@/state/api";
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import {
   Bar,
@@ -78,7 +78,13 @@ const Row4 = () => {
           </PieChart>
         </Box>
       </DashboardBox>
-      <DashboardBox gridArea="i">
+      <DashboardBox padding="0.8rem" display="flex" alignItems="center" gridArea="i">
+        <Typography variant="h4">
+          Developed with passion ✨ by{" "}
+          <span style={{ color: palette.primary[500] }}>Tareq Harh</span>. 2025
+        </Typography>
+      </DashboardBox>
+      <DashboardBox gridArea="j">
         <BoxHeader
           title="Top 10 Highest Profit Products"
           subtitle="Graph representing highest profit products"
@@ -126,7 +132,7 @@ const Row4 = () => {
           </BarChart>
         </ResponsiveContainer>
       </DashboardBox>
-      <DashboardBox gridArea="j">
+      <DashboardBox gridArea="k">
         <BoxHeader
           title="Top 10 Highest Selling Products"
           subtitle="Graph representing highest selling products"
