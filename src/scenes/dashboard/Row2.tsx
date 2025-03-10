@@ -58,14 +58,40 @@ const Row2 = () => {
       })
     );
   }, [data]);
-
+  // Metrics
+  const revenueGrowth = useMemo(() => {
+    if (!data) return "";
+    const monthlyData = data[0].monthlyData;
+    // Calculate percentage change between the last two months
+    const lastMonth = monthlyData[monthlyData.length - 1].revenue;
+    const prevMonth = monthlyData[monthlyData.length - 2].revenue;
+    const growth = ((lastMonth - prevMonth) / prevMonth) * 100;
+    return `${growth.toFixed(1)}%`;
+  }, [data]);
+  const profitMargin = useMemo(() => {
+    if (!data) return "";
+    const monthlyData = data[0].monthlyData;
+    // Let's calculate the margin for the latest month
+    const { revenue, expenses } = monthlyData[monthlyData.length - 1];
+    const profit = revenue - expenses;
+    const margin = (profit / revenue) * 100;
+    return `MP ${margin.toFixed(1)}%`;
+  }, [data]);
+  const marketingEfficiency = useMemo(() => {
+    if (!data) return "";
+    const monthlyData = data[0].monthlyData;
+    // Latest month metrics:
+    const { revenue, marketingSpend } = monthlyData[monthlyData.length - 1];
+    const ratio = (marketingSpend / revenue) * 100;
+    return `${ratio.toFixed(1)}%`;
+  }, [data]);
   return (
     <>
       <DashboardBox gridArea="c">
         <BoxHeader
           title="Revenue and Expenses"
-          subtitle="top line represents revenue, bottom line represents expenses"
-          sideText="+4%???"
+          subtitle="Revenue growth percentage monthly metrics."
+          sideText={revenueGrowth}
         />
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
@@ -131,8 +157,8 @@ const Row2 = () => {
       <DashboardBox gridArea="d">
         <BoxHeader
           title="Monthly Profit"
-          subtitle="This chart represents the monthly profit"
-          sideText="+4%???"
+          subtitle="Graph the monthly profit and average Margin profit"
+          sideText={profitMargin}
         />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -180,8 +206,8 @@ const Row2 = () => {
       <DashboardBox gridArea="e">
         <BoxHeader
           title="Monthly Marketing Spend"
-          subtitle="graph representing the monthly marketing spend"
-          sideText="+4%???"
+          subtitle="Graph the monthly marketing spend and Marketing share of Revenue"
+          sideText={marketingEfficiency}
         />
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

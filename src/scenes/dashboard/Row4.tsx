@@ -53,7 +53,7 @@ const Row4 = () => {
   return (
     <>
       <DashboardBox gridArea="h">
-        <BoxHeader title="Expense Breakdown By Category" sideText="+4%???" />
+        <BoxHeader title="Expense Breakdown By Category" sideText="" />
         <Box
           sx={{
             display: "flex",
@@ -88,7 +88,7 @@ const Row4 = () => {
         <BoxHeader
           title="Top 10 Highest Profit Products"
           subtitle="Graph representing highest profit products"
-          sideText="+4%???"
+          sideText=""
         />
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -136,7 +136,7 @@ const Row4 = () => {
         <BoxHeader
           title="Top 10 Highest Selling Products"
           subtitle="Graph representing highest selling products"
-          sideText="+4%???"
+          sideText=""
         />
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
