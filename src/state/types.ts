@@ -39,7 +39,7 @@ export interface GetKpisResponse {
   totalExpenses: number;
   expensesByCategory: ExpensesByCategory;
   monthlyData: Array<Month>;
-  metaProducts: Array<string>;
+  metaProducts: MetaProducts;
 }
 
 export interface GetProductsResponse {
@@ -60,4 +60,9 @@ export interface GetTransactionsResponse {
   productIds: Array<string>;
   createdAt: string;
   updatedAt: string;
+}
+export interface GetCustomersResponse {
+  customerName: string;
+  totalSpent: number;
+  purchaseCount: number;
 }

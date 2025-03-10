@@ -1,4 +1,5 @@
 // src/api/customBaseQuery.js
+import { customerData } from "@/data/customerData";
 import { kpis } from "@/data/kpis";
 import { products } from "@/data/products";
 import { transactions } from "@/data/transactions";
@@ -21,6 +22,8 @@ const customBaseQuery: BaseQueryFn<
           data = products;
         } else if (args === "transaction/transactions/") {
           data = transactions;
+        } else if (args === "customer/customers/") {
+          data = customerData;
         } else {
           // If the endpoint doesn't match any known key, return an error
           resolve({ error: { status: 404, data: "Not Found" } });
