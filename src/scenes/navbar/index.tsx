@@ -13,7 +13,7 @@ const Navbar = () => {
         <FlexBetween gap="0.75rem">
           <PredictiveInsightsLogo />
           <Typography variant="h4" fontSize="16px">
-            Predictive Insights
+            Financial Insights
           </Typography>
         </FlexBetween>
         <Box
